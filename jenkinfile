@@ -42,8 +42,9 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
             container('docker') {  
                 sh 'hostname'
                 sh 'hostname -i' 
-                sh 'service --status-all'
-                sh 'service docker start'
+                sh 'systemctl unmask docker.service'
+                sh 'systemctl unmask docker.socket'
+                sh 'systemctl start docker.service'
                 sh 'docker ps'
                 sh 'ls'
             }

@@ -64,6 +64,8 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-ci', containers: [
               } 
                 
             } 
+            
+        }    
 
         stage('Testing') {
             container('docker') { 
@@ -82,4 +84,4 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins-ci', containers: [
             }
         }      
     }
-}
+

@@ -32,8 +32,14 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
   ],
 
   volumes: [
-    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-    hostPathVolume(mountPath: '/usr/local/bin/helm', hostPath: '/usr/local/bin/helm')
+  
+   - name: docker
+          mountPath: /var/run/docker.sock # We use the k8s host docker eng
+          
+    - name: docker
+      hostPath:
+        path: /var/run/docker.sock
+    
   ]
   ) {
     node('mypod') {

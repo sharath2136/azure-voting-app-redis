@@ -38,7 +38,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
     node('mypod') {
     
                 stage('Check running containers') {
-                  {  
+                 ('docker') {  
                 sh 'hostname'
                 sh 'hostname -i'
                 sh 'ps -ef | grep docker'

@@ -42,11 +42,11 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
             container('docker') {  
                 sh 'hostname'
                 sh 'hostname -i' 
-                sh 'docker ps'
+                sh 'sudo docker ps'
                 sh 'ls'
             }
             container('kubectl') { 
-                sh 'kubectl get pods -n default'  
+                sh 'sudo kubectl get pods -n default'  
             }
             container('helm') { 
                 sh 'helm init --client-only --skip-refresh'
@@ -58,9 +58,9 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
             container('docker'){
 
               withCredentials([usernamePassword(credentialsId: 'ACR-ID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'docker login --username="${USERNAME}" --password="${PASSWORD}"'
-                sh "docker build -t ${ACR_LOGINSERVER}:${BUILD_NUMBER} ."
-                sh 'docker image ls' 
+                sh 'sudo docker login --username="${USERNAME}" --password="${PASSWORD}"'
+                sh "sudo docker build -t ${ACR_LOGINSERVER}:${BUILD_NUMBER} ."
+                sh 'sudo docker image ls' 
               } 
                 
             } 

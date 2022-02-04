@@ -32,7 +32,15 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
   ],
   ) {
     node('mypod') {
-
+    
+                stage('Check running containers') {
+            container('docker') {  
+                sh 'hostname'
+                sh 'hostname -i'
+                sh 'ps -ef | grep docker'
+                sh 'docker ps'
+                sh 'ls'
+            }
         
             container('kubectl') { 
                 sh 'kubectl get pods -n default'  
@@ -41,13 +49,7 @@ podTemplate(label: 'mypod', serviceAccount: 'jenkins', containers: [
                 sh 'helm init --client-only --skip-refresh'
                 sh 'helm repo update'     
             }
-            stage('Check running containers') {
-            container('docker') {  
-                sh 'hostname'
-                sh 'hostname -i'
-                sh 'docker ps'
-                sh 'ls'
-            }
+            
         }  
 
         stage('Build Image'){
